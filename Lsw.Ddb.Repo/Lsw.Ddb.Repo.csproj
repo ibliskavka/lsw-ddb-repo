@@ -2,6 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
+    <Authors>Ivan Bliskavka</Authors>
+    <Company>Liandra Softworks</Company>
+    <Description>Repository style pattern for interacting with AWS Dynamo DB</Description>
+    <RepositoryUrl>https://github.com/ibliskavka/lsw-ddb-repo</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>

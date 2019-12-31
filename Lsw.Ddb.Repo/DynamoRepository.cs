@@ -22,7 +22,13 @@ namespace Lsw.Ddb.Repo
             Table = Table.LoadTable(DbClient, Config.TableName);
         }
 
-        protected async Task<TModel> GetItem<TModel>(string partitionKey, string sortKey)
+        public async Task<string> GetJson(string partitionKey, string sortKey)
+        {
+            var doc = await Table.GetItemAsync(partitionKey, sortKey);
+            return doc?.ToJson();
+        }
+
+        public async Task<TModel> GetItem<TModel>(string partitionKey, string sortKey)
             where TModel : BaseModel
         {
             var doc = await Table.GetItemAsync(partitionKey, sortKey);
@@ -44,7 +50,7 @@ namespace Lsw.Ddb.Repo
             });
         }
 
-        protected async Task DeleteItem(string partitionKey, string sortKey)
+        public async Task DeleteItem(string partitionKey, string sortKey)
         {
             var request = new DeleteItemRequest
             {
