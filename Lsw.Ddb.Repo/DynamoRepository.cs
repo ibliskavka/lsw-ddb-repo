@@ -28,6 +28,15 @@ namespace Lsw.Ddb.Repo
             return doc?.ToJson();
         }
 
+        public async Task PutJson(string json)
+        {
+            var doc = Document.FromJson(json);
+            await Table.PutItemAsync(doc, new PutItemOperationConfig
+            {
+                ReturnValues = ReturnValues.None
+            });
+        }
+
         public async Task<TModel> GetItem<TModel>(string partitionKey, string sortKey)
             where TModel : BaseModel
         {
