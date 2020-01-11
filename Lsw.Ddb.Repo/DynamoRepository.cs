@@ -4,15 +4,20 @@ using Amazon.DynamoDBv2.Model;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+
 namespace Lsw.Ddb.Repo
 {
-    public abstract class DynamoRepository
+    public class DynamoRepository
     {
+        private readonly JsonSerializerSettings _settings;
+
         protected IDynamoConfig Config { get; set; }
         protected readonly IAmazonDynamoDB DbClient;
         protected Table Table;
 
-        protected DynamoRepository(
+        public DynamoRepository(
             IDynamoConfig cfg,
             IAmazonDynamoDB dbClient)
         {
@@ -20,6 +25,17 @@ namespace Lsw.Ddb.Repo
             Config = cfg;
 
             Table = Table.LoadTable(DbClient, Config.TableName);
+            _settings = new JsonSerializerSettings();
+        }
+
+
+        public DynamoRepository(
+            IDynamoConfig cfg,
+            IAmazonDynamoDB dbClient, 
+            JsonSerializerSettings settings)
+                : this(cfg, dbClient)
+        {
+            _settings = settings;
         }
 
         public async Task<string> GetJson(string partitionKey, string sortKey)
@@ -38,10 +54,11 @@ namespace Lsw.Ddb.Repo
         }
 
         public async Task<TModel> GetItem<TModel>(string partitionKey, string sortKey)
-            where TModel : BaseModel
         {
             var doc = await Table.GetItemAsync(partitionKey, sortKey);
-            return doc?.Map<TModel>();
+            return doc != null 
+                ? Map<TModel>(doc) 
+                : default;
         }
 
         /// <summary>
@@ -51,7 +68,7 @@ namespace Lsw.Ddb.Repo
             where TModel : BaseModel
         {
             IsValid(model);
-            var doc = model.Map();
+            var doc = Map(model);
 
             await Table.PutItemAsync(doc, new PutItemOperationConfig
             {
@@ -85,7 +102,7 @@ namespace Lsw.Ddb.Repo
         {
             if (string.IsNullOrWhiteSpace(model.Pk))
             {
-                throw new ArgumentNullException(nameof(model.Sk), "Required");
+                throw new ArgumentNullException(nameof(model.Pk), "Required");
             }
             if (string.IsNullOrWhiteSpace(model.Sk))
             {
@@ -96,6 +113,38 @@ namespace Lsw.Ddb.Repo
             {
                 throw new Exception("BaseModel object did not pass validation.");
             }
+        }
+
+        /// <summary>
+        /// Maps ddb model to object
+        /// </summary>
+        public TModel Map<TModel>(Document doc)
+        {
+            string json = doc.ToJson();
+            var obj = JsonConvert.DeserializeObject<TModel>(json, _settings);
+            return obj;
+        }
+
+        /// <summary>
+        /// Maps ddb model to object
+        /// </summary>
+        public List<TModel> Map<TModel>(IEnumerable<Document> docs)
+        {
+            var results = new List<TModel>();
+            foreach (var doc in docs)
+            {
+                results.Add(Map<TModel>(doc));
+            }
+            return results;
+        }
+
+        /// <summary>
+        /// Map object to ddb
+        /// </summary>
+        public Document Map(BaseModel model)
+        {
+            string json = JsonConvert.SerializeObject(model, _settings);
+            return Document.FromJson(json);
         }
     }
 }

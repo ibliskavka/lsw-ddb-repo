@@ -7,7 +7,7 @@
     <Description>Repository style pattern for interacting with AWS Dynamo DB</Description>
     <RepositoryUrl>https://github.com/ibliskavka/lsw-ddb-repo</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
   </PropertyGroup>
 
   <ItemGroup>
