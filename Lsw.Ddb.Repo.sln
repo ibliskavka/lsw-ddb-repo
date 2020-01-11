@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29509.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lsw.Ddb.Repo", "Lsw.Ddb.Repo\Lsw.Ddb.Repo.csproj", "{6D4354F8-ECBF-427C-BB9C-6D9820CCEC13}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lsw.Ddb.Repo", "Lsw.Ddb.Repo\Lsw.Ddb.Repo.csproj", "{6D4354F8-ECBF-427C-BB9C-6D9820CCEC13}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lsw.Ddb.Repo.Tests", "Lsw.Ddb.Repo.Tests\Lsw.Ddb.Repo.Tests.csproj", "{EE982920-29ED-4BE0-AD15-6F6D539B2853}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{6D4354F8-ECBF-427C-BB9C-6D9820CCEC13}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D4354F8-ECBF-427C-BB9C-6D9820CCEC13}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D4354F8-ECBF-427C-BB9C-6D9820CCEC13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE982920-29ED-4BE0-AD15-6F6D539B2853}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE982920-29ED-4BE0-AD15-6F6D539B2853}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE982920-29ED-4BE0-AD15-6F6D539B2853}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE982920-29ED-4BE0-AD15-6F6D539B2853}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
