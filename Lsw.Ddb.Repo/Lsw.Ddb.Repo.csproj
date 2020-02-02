@@ -7,11 +7,11 @@
     <Description>Repository style pattern for interacting with AWS Dynamo DB</Description>
     <RepositoryUrl>https://github.com/ibliskavka/lsw-ddb-repo</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <Version>1.0.3</Version>
+    <Version>1.0.4</Version>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AWSSDK.DynamoDBv2" Version="3.3.104.13" />
+    <PackageReference Include="AWSSDK.DynamoDBv2" Version="3.3.104.23" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
 

@@ -65,7 +65,7 @@ namespace Lsw.Ddb.Repo
         /// Standard put operation
         /// </summary>
         public virtual async Task PutItem<TModel>(TModel model)
-            where TModel : BaseModel
+            where TModel : IBaseModel
         {
             IsValid(model);
             var doc = Map(model);
@@ -98,7 +98,7 @@ namespace Lsw.Ddb.Repo
         /// <summary>
         /// Called before saving the object
         /// </summary>
-        protected void IsValid(BaseModel model)
+        protected void IsValid(IBaseModel model)
         {
             if (string.IsNullOrWhiteSpace(model.Pk))
             {
@@ -111,7 +111,7 @@ namespace Lsw.Ddb.Repo
 
             if (!model.IsValid())
             {
-                throw new Exception("BaseModel object did not pass validation.");
+                throw new Exception("IBaseModel object did not pass validation.");
             }
         }
 
@@ -141,7 +141,7 @@ namespace Lsw.Ddb.Repo
         /// <summary>
         /// Map object to ddb
         /// </summary>
-        public Document Map(BaseModel model)
+        public Document Map(IBaseModel model)
         {
             string json = JsonConvert.SerializeObject(model, _settings);
             return Document.FromJson(json);

@@ -5,8 +5,11 @@ using Newtonsoft.Json;
 
 namespace Lsw.Ddb.Repo.Tests.Model
 {
-    public class ShopUsage : BaseModel
+    public class ShopUsage : IBaseModel
     {
+        public string Pk { get; private set; }
+        public string Sk { get; private set; }
+
         public string ShopId { get; set; }
         public string OrderId { get; set; }
 
@@ -85,7 +88,9 @@ namespace Lsw.Ddb.Repo.Tests.Model
             return $"{shopId}#{id}";
         }
 
-
-
+        public bool IsValid()
+        {
+            return true;
+        }
     }
 }
