@@ -7,8 +7,8 @@ namespace Lsw.Ddb.Repo.Tests.Model
 {
     public class ShopUsage : IBaseModel
     {
-        public string Pk { get; private set; }
-        public string Sk { get; private set; }
+        public string Pk { get; set; }
+        public string Sk { get; set; }
 
         public string ShopId { get; set; }
         public string OrderId { get; set; }
